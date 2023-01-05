@@ -29,23 +29,21 @@ import java.lang.reflect.Method;
 
 /**
  * @author xueshaoyi
- * @Date 2020/11/23 上午11:40
+ * @date 2020/11/23 上午11:40
  **/
 public class RedissonEnhancer extends BeforeEnhancer {
 
-	public static final String CHARSET = "UTF-8";
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedissonEnhancer.class);
 
 	@Override
 	public EnhancerModel doBeforeAdvice(ClassLoader classLoader, String className, Object object, Method method,
 	                                    Object[] methodArguments) throws Exception {
 
-		if (methodArguments == null || methodArguments.length != 7) {
-			LOGGER.info("The necessary parameters is null or length is not equal 7, {}",
-			            methodArguments != null ? methodArguments.length : null);
+		if (methodArguments == null) {
+			LOGGER.info("The necessary parameters is null !");
 			return null;
 		}
-		LOGGER.info("method Arguments {}", methodArguments.toString());
+		LOGGER.info("method Arguments {}", JsonUtil.writer().writeValueAsString(methodArguments));
 
 
 		Object command = methodArguments[3];
@@ -64,7 +62,8 @@ public class RedissonEnhancer extends BeforeEnhancer {
 			return null;
 		}
 		Object[] params = (Object[]) args;
-		if (params != null && params.length >= 1) {
+
+		if (params.length >= 1) {
 			key = params[0].toString();
 		}
 
