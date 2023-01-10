@@ -40,9 +40,8 @@ public class RedissonEnhancer extends BeforeEnhancer {
 	public EnhancerModel doBeforeAdvice(ClassLoader classLoader, String className, Object object, Method method,
 	                                    Object[] methodArguments) throws Exception {
 
-		if (methodArguments == null || methodArguments.length != 7) {
-			LOGGER.info("The necessary parameters is null or length is not equal 7, {}",
-			            methodArguments != null ? methodArguments.length : null);
+		if (methodArguments == null) {
+			LOGGER.info("The necessary parameters is null!");
 			return null;
 		}
 		LOGGER.info("method Arguments {}", methodArguments.toString());
